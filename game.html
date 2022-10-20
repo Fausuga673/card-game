@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YYH Cards Game</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/map.css">
+    <link rel="stylesheet" href="assets/css/hud.css">
+    <link rel="stylesheet" href="assets/css/card.css">
+
+</head>
+<body>
+    <main class="container">
+        <section class="table">
+            <article class="table__area enemy">
+                <div class="table__area--hud">
+                    <div class="table__area--hud-avatar">
+                        <div class="table__area--hud-avatar-photo" id="enemy-avatar"></div>
+                        <div>
+                            <h2 class="table__area--hud-avatar-name" id="enemy-name">Toguro</h2>
+                            <h3 class="table__area--hud-avatar-score">score:</h3>
+                        </div>
+                    </div>
+                    <div class="table__area--hud-cards" id="table__area--hud-cardsEnemy">
+                    </div>
+                </div>
+                <div class="table__area--turn" id="enemy-turn">
+                    <div class="table__area--turn-card player-card back">
+                    </div>
+                    <div class="table__area--turn-card enemy-card">
+                        <div class="table__area--turn-card-stat speed enemy-card-stat">
+                            <p class="stat-p speed-p">SPEED</p>
+                            <p id="enemy-speed">8</p>
+                        </div>
+                        <div class="table__area--turn-card-stat defense enemy-card-stat">
+                            <p class="stat-p defense-p">DEF</p>
+                            <p id="enemy-defense">10</p>
+                        </div>
+                        <div class="table__area--turn-card-stat attack enemy-card-stat">
+                            <img class="table__area--turn-card-stat-logo" src="assets/img/characters/sword.png" alt="">
+                            <p class="stat-p attack-p">ATK</p>
+                            <p id="enemy-attack">6</p>
+                        </div>
+                        <div class="table__area--turn-card-name" id="enemyCard-name">Toguro</div>
+                    </div>
+                </div>
+            </article>
+            <article class="table__area player">
+                <div class="table__area--hud">
+                    <div class="table__area--hud-avatar">
+                        <div class="table__area--hud-avatar-photo player-avatar" id="player-avatar"></div>
+                        <div>
+                            <h2 class="table__area--hud-avatar-name" id="player-name">Yusuke</h2>
+                            <h3 class="table__area--hud-avatar-score">score:</h3>
+                        </div>
+                    </div>
+                    <div class="table__area--hud-cards" id="table__area--hud-cardsPlayer"></div>
+                </div>
+                <div class="table__area--turn" id="player-turn">
+                    <div class="table__area--turn-card player-card back">
+                    </div>
+                    <div class="table__area--turn-card player-card">
+                        <div class="table__area--turn-card-stat speed player-card-stat">
+                            <p class="stat-p speed-p">SPD</p>
+                            <p id="speed">6</p>
+                        </div>
+                        <div class="table__area--turn-card-stat defense player-card-stat">
+                            <p class="stat-p defense-p">DEF</p>
+                            <p id="defense">8</p>
+                        </div>
+                        <div class="table__area--turn-card-stat attack player-card-stat">
+                            <img class="table__area--turn-card-stat-logo" src="assets/img/characters/sword.png" alt="">
+                            <p class="stat-p attack-p">ATK</p>
+                            <p id="attack">10</p>
+                        </div>
+                        <div class="table__area--turn-card-name" id="playerCard-name">Yusuke</div>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+    <script src="assets/js/avatar.js"></script>
+    <script src="assets/js/card.js"></script>
+    <script> getAvatar() </script>
+</body>
+</html>

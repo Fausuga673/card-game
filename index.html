@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YYH Cards Game</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/map.css">
+    <link rel="stylesheet" href="assets/css/menu.css">
+
+</head>
+<body>
+    <main class="container">
+        <section class="table menu">
+            <div class="table__container">
+                <article class="menu__container--logo"></article>
+                <article class="menu__container--start">
+                    <a href="game.html" class="menu__container--start-button"><p>Iniciar partida</p></a>
+                </article>
+                <fieldset class="menu__container--select">
+                    <legend class="menu__container--select-tittle"><h2>Seleccionar avatar</h2></legend>
+                    <div class="menu__container--select--container" id="menu__container--select--container">
+                    </div>
+                </fieldset>
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/avatar.js"></script>
+    <script>
+        for(let i = 0; i < character.length; i++) {
+            putAvatar(character[i]);
+        }
+        selectAvatar();
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+.table__container {
+    width: 100%;
+    height: 100%;
+    padding: min(20px, 5vw);
+    display: flex;
+    flex-direction: column;
+}
+
+.menu__container--logo {
+    width: 100%;
+    height: 20%;
+    background: url(../img/logo.png);
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: logo .8s linear infinite alternate;
+}
+
+@keyframes logo {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(.9);
+    }
+}
+
+.menu__container--start {
+    width: 100%;
+    height: 20%;
+    margin: auto 0 auto 0;
+    background: linear-gradient(90deg, #1c71df00, #002792, #1c71df00);
+    border-top: min(5px, 1vw) solid;
+    border-bottom: min(5px, 1vw) solid;
+    border-image: radial-gradient(circle,#000000, #0c5d9f00 80%) 50;
+    display: grid;
+    place-items: center;
+}
+
+.menu__container--start-button {
+    width: min(250px, 50vw);
+    height: min(50px, 10vw);
+    border: none;
+    color: #ffffff;
+    font-size: min(25px, 5vw);
+    font-weight: 800;
+    font-style: italic;
+    border: min(1px, 1vw) solid;
+    background: linear-gradient(90deg, #000000, #00000000, #000000);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: 300% 300%;
+    cursor: pointer;
+    animation: gradient 8s ease-in-out infinite;
+}
+
+.menu__container--start-button p{
+    background-image: linear-gradient(90deg, #00ffff, #0011ff, #00ffff, #0011ff, #00ffff, #0011ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300% 300%;
+    animation: gradient 8s ease-in-out infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.menu__container--select {
+    width: 100%;
+    height: min-content;
+    border: none;
+    margin: 0 0 auto 0;
+    padding: min(20px, 2vw);
+    border-top: min(5px, 1vw) solid;
+    border-bottom: min(5px, 1vw) solid;
+    border-image: radial-gradient(circle,#000000, #0c5d9f00 80%) 50;
+    background: linear-gradient(90deg, #1c71df00, #002792, #1c71df00);
+}
+
+.menu__container--select-tittle {
+    text-align: center;
+    font-size: min(20px, 3vw);
+    padding: 0 1vw;
+    border: min(1px, .5vw) solid #ffffff;
+    background: linear-gradient(90deg, #000000, #00000091, #000000);
+}
+
+.menu__container--select-tittle h2 {
+    background-image: linear-gradient(0deg, #00ffff, #0011ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+    letter-spacing: .2vw;
+}
+
+.menu__container--select--container {
+    width: min-content;
+    height: min-content;
+    display: grid;
+    margin: auto;
+    gap: min(10px, 1vw);
+    grid-template-columns: repeat(8, min(80px, 10vw));
+    grid-template-rows: repeat(3,  min(80px, 10vw));
+}
+
+.menu__container--select--container-avatar {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border: min(1px, .5vw) solid #ffffff;
+    border-radius: 90% 10% 90% 10% / 0% 100% 0% 100%;
+    background-image: url(../img/characters/avatar/hiei.jpg);
+}
+
+.menu__container--select--container-avatar:hover {
+    border: min(2px, .8vw) solid #00ffff;
+}
+
+@keyframes avatar {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(.9);
+    }
+}
