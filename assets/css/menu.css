@@ -124,6 +124,7 @@
     border: min(1px, .5vw) solid #ffffff;
     border-radius: 90% 10% 90% 10% / 0% 100% 0% 100%;
     background-image: url(../img/characters/avatar/hiei.jpg);
+    cursor: pointer;
 }
 
 .menu__container--select--container-avatar:hover {

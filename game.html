@@ -29,9 +29,9 @@
                     </div>
                 </div>
                 <div class="table__area--turn" id="enemy-turn">
-                    <div class="table__area--turn-card player-card back">
+                    <div class="table__area--turn-card player-card back" id="enemy-card-back">
                     </div>
-                    <div class="table__area--turn-card enemy-card">
+                    <div class="table__area--turn-card enemy-card" id="enemy-card-front">
                         <div class="table__area--turn-card-stat speed enemy-card-stat">
                             <p class="stat-p speed-p">SPEED</p>
                             <p id="enemy-speed">8</p>
@@ -45,7 +45,7 @@
                             <p class="stat-p attack-p">ATK</p>
                             <p id="enemy-attack">6</p>
                         </div>
-                        <div class="table__area--turn-card-name" id="enemyCard-name">Toguro</div>
+                        <div class="table__area--turn-card-name" id="enemy-card-name">Toguro</div>
                     </div>
                 </div>
             </article>
@@ -61,9 +61,9 @@
                     <div class="table__area--hud-cards" id="table__area--hud-cardsPlayer"></div>
                 </div>
                 <div class="table__area--turn" id="player-turn">
-                    <div class="table__area--turn-card player-card back">
-                    </div>
-                    <div class="table__area--turn-card player-card">
+                    <button class="table__area--turn-card player-card back" id="player-card-back"></button>>
+                    </button>
+                    <button class="table__area--turn-card player-card" id="player-card-front" id="player-card-front">
                         <div class="table__area--turn-card-stat speed player-card-stat">
                             <p class="stat-p speed-p">SPD</p>
                             <p id="speed">6</p>
@@ -77,8 +77,8 @@
                             <p class="stat-p attack-p">ATK</p>
                             <p id="attack">10</p>
                         </div>
-                        <div class="table__area--turn-card-name" id="playerCard-name">Yusuke</div>
-                    </div>
+                        <div class="table__area--turn-card-name" id="player-card-name">Yusuke</div>
+                    </button>
                 </div>
             </article>
         </section>

@@ -1,286 +1,256 @@
-let card = [
+let cards = [
     {
         name: 'Yusuke',
         speed: 7,
         attack: 8,
         defense: 5,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Kuwabara',
         speed: 5,
         attack: 7,
         defense: 8,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Kurama',
         speed: 8,
         attack: 7,
         defense: 8,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Hiei',
         speed: 10,
         attack: 8,
         defense: 5,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Toguro',
         speed: 5,
         attack: 8,
         defense: 10,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Genkai',
         speed: 8,
         attack: 8,
         defense: 6,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Shinobu',
         speed: 6,
         attack: 7,
         defense: 8,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Chu',
         speed: 7,
         attack: 8,
         defense: 10,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Raizen',
         speed: 9,
         attack: 9,
         defense: 6,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Yomi',
         speed: 8,
         attack: 9,
         defense: 10,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Mukuro',
         speed: 8,
         attack: 6,
         defense: 6,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Karasu',
         speed: 7,
         attack: 6,
         defense: 6,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Jin',
         speed: 6,
         attack: 10,
         defense: 6,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Tsukihito',
         speed: 4,
         attack: 9,
         defense: 10,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Yoko',
         speed: 9,
         attack: 9,
         defense: 8,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     },
     {
         name: 'Bui',
         speed: 6,
         attack: 6,
         defense: 10,
-        background: 'url'
+        background: 'url(assets/img/characters/cards/togurocard.jpg)'
     }
 ]
 
-pos = 0;
-enemyDeck = [];
-playerDeck = [];
-startingCards = 8;
+const deckContainerEnemy = document.getElementById('table__area--hud-cardsEnemy');
+const deckContainerPlayer = document.getElementById('table__area--hud-cardsPlayer');
 
-const enemyCardsOnDeck = document.getElementById('table__area--hud-cardsEnemy');
-const playerCardsOnDeck = document.getElementById('table__area--hud-cardsPlayer');
+let enemyPosition = -1;
+let playerPosition = -1;
+let enemyDeck = [];
+let playerDeck = [];
+let initialNumberOfCards = 8
 
 function dealCards() {
     // revolvemos las cartas
-    card = card.sort(function() {return Math.random() - 0.5});
+    cards = cards.sort(function() {return Math.random() - 0.5});
 
-    // repartimos las cartas
-    for(let i = 0; i < 16; i++) {
-        if (enemyDeck.length < startingCards) {
-            // el enemigo recibe 8 cartas
-            enemyDeck.push(card[i]);
-            enemyCardsOnDeck.innerHTML += '<div class="table__area--hud-cards-card"><div class="logo"></div></div>';
-        } else {
-            // el jugador recibe 8 cartas
-            playerDeck.push(card[i]);
-            playerCardsOnDeck.innerHTML += '<div class="table__area--hud-cards-card"><div class="logo"></div></div>';
-        }
+    // tanto el enemigo como el jugador recibe 8 cartas
+    enemyDeck.push(cards.splice(0, 8));
+    playerDeck.push(cards.splice(0, 8));
+
+    for(let i = 0; i < initialNumberOfCards; i++) {
+        deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
+        deckContainerPlayer.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
     }
-} dealCards();
+} dealCards()
 
-const cardValues = document.getElementsByClassName('player-card-stat');
-const enemyCardValues = document.getElementsByClassName('enemy-card-stat');
-const enemyTurnCard = document.getElementById('enemy-turn');
-const playerTurnCard = document.getElementById('player-turn');
+const cardPlayerBack = document.getElementById('player-card-back');
+const cardPlayerFront = document.getElementById('player-card-front');
 
-const enemyCardName = document.getElementById('enemyCard-name');
-const playerCardName = document.getElementById('playerCard-name');
+const cardEnemyBack = document.getElementById('enemy-card-back');
+const cardEnemyFront = document.getElementById('enemy-card-front');
 
-const nameCard = document.getElementById('playerCard-name');
-const speedCard = document.getElementById('speed');
-const attackCard = document.getElementById('attack');
-const defenseCard = document.getElementById('defense');
+const playerCardStat = document.getElementsByClassName('player-card-stat');
+const enemyCardStat = document.getElementsByClassName('enemy-card-stat');
 
-const enemyNameCard = document.getElementById('enemyCard-name');
-const enemySpeedCard = document.getElementById('enemy-speed');
-const enemyAttackCard = document.getElementById('enemy-attack');
-const enemyDefenseCard = document.getElementById('enemy-defense');
+const playerCardName = document.getElementById('player-card-name');
+const enemyCardName = document.getElementById('enemy-card-name');
 
-function usePlayerCard() {
-    nameCard.innerHTML = playerDeck[pos].name;
-    speedCard.innerHTML = playerDeck[pos].speed;
-    attackCard.innerHTML = playerDeck[pos].attack;
-    defenseCard.innerHTML = playerDeck[pos].defense;
-} usePlayerCard();
+function flipCard(card, firstDeg, seconDeg) {
+    if (card == 'player') {
 
-function useEnemyCard() {
-    enemyNameCard.innerHTML = enemyDeck[pos].name;
-    enemySpeedCard.innerHTML = enemyDeck[pos].speed;
-    enemyAttackCard.innerHTML = enemyDeck[pos].attack;
-    enemyDefenseCard.innerHTML = enemyDeck[pos].defense;
-} useEnemyCard();
+        cardPlayerFront.style.transform = `perspective(min(1000px, 200vw)) rotateY(${firstDeg}deg)`;
+        cardPlayerBack.style.transform = `perspective(min(1000px, 200vw)) rotateY(${seconDeg}deg)`;
 
-function flipPlayerCard(firstDeg, seconDeg) {
-    playerTurnCard.firstElementChild.style.transform = `perspective(min(1000px, 200vw)) rotateY(${firstDeg}deg)`;
-    playerTurnCard.lastElementChild.style.transform = `perspective(min(1000px, 200vw)) rotateY(${seconDeg}deg)`;
+    } else if (card == 'enemy') {
 
-    usePlayerCard();
-}
+        cardEnemyFront.style.transform = `perspective(min(1000px, 200vw)) rotateY(${firstDeg}deg)`;
+        cardEnemyBack.style.transform = `perspective(min(1000px, 200vw)) rotateY(${seconDeg}deg)`;
 
-function flipEnemyCard(firstDeg, seconDeg) {
-    enemyTurnCard.lastElementChild.style.transform = `perspective(min(1000px, 200vw)) rotateY(${firstDeg}deg)`;
-    enemyTurnCard.firstElementChild.style.transform = `perspective(min(1000px, 200vw)) rotateY(${seconDeg}deg)`;
+    } else if (card == 'both') {
 
-    useEnemyCard();
-}
+        cardPlayerFront.style.transform = `perspective(min(1000px, 200vw)) rotateY(${firstDeg}deg)`;
+        cardPlayerBack.style.transform = `perspective(min(1000px, 200vw)) rotateY(${seconDeg}deg)`;
 
-playerTurnCard.addEventListener('click', function(){
-    flipPlayerCard(180, 360);
+        cardEnemyFront.style.transform = `perspective(min(1000px, 200vw)) rotateY(${firstDeg}deg)`;
+        cardEnemyBack.style.transform = `perspective(min(1000px, 200vw)) rotateY(${seconDeg}deg)`;
+
+    }
+} 
+
+cardPlayerBack.addEventListener('click', function() {
+    flipCard('player', 360, 180);
 }, false)
 
-function enemyTurn(){
 
+function useCard() {
+    console.log(enemyDeck[0]);
+    console.log(playerDeck[0]);
+
+    playerCardStat[0].lastElementChild.innerHTML = playerDeck[0][0].speed;
+    playerCardStat[1].lastElementChild.innerHTML = playerDeck[0][0].defense;
+    playerCardStat[2].lastElementChild.innerHTML = playerDeck[0][0].attack;
+    cardPlayerFront.style.backgroundImage = playerDeck[0][0].background;
+    playerCardName.innerHTML = playerDeck[0][0].name;
+    
+    enemyCardStat[0].lastElementChild.innerHTML = enemyDeck[0][0].speed;
+    enemyCardStat[1].lastElementChild.innerHTML = enemyDeck[0][0].defense;
+    enemyCardStat[2].lastElementChild.innerHTML = enemyDeck[0][0].attack;
+    cardEnemyFront.style.backgroundImage = enemyDeck[0][0].background;
+    enemyCardName.innerHTML = enemyDeck[0][0].name;
+} useCard();
+
+function compareValues(PlayerValue, enemyValue) {
     setTimeout(()=>{
-        flipEnemyCard(360, 180);
-        
-        let selectValue = Math.floor(Math.random() * 3);
-        let playerCardValue = parseInt(cardValues[selectValue].lastElementChild.textContent);
-        let enemyCardValue = parseInt(enemyCardValues[selectValue].lastElementChild.textContent);
-        
-        setTimeout(()=>{
 
-            flipPlayerCard(180, 360);
+        if (PlayerValue > enemyValue) { 
+
+            console.log('ganas');
 
             setTimeout(()=>{
-                if (enemyCardValue > playerCardValue) {
+                flipCard('both', 180, 360);
+                
+                playerDeck[0].push(enemyDeck[0][0], playerDeck[0][0]);
+                playerDeck[0].shift();
+                enemyDeck[0].shift();
 
-                    enemyCardsOnDeck.innerHTML += '<div class="table__area--hud-cards-card"><div class="logo"></div></div>';
-                    playerCardsOnDeck.removeChild(playerCardsOnDeck.firstElementChild);
-        
-                    flipEnemyCard(180, 0);
-                    flipPlayerCard(360, 180);
-                    pos = pos+1
-                    
-                } else if (enemyCardValue < playerCardValue) {
-        
-                    playerCardsOnDeck.innerHTML += '<div class="table__area--hud-cards-card"><div class="logo"></div></div>';
-                    enemyCardsOnDeck.removeChild(enemyCardsOnDeck.firstElementChild);
-        
-                    flipEnemyCard(180, 0);
-                    flipPlayerCard(360, 180);
-                    pos = pos+1
+                deckContainerEnemy.removeChild(deckContainerEnemy.firstElementChild);
+                deckContainerPlayer.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
+                useCard();
+            }, 2000)
+            
+        } else if (PlayerValue < enemyValue) {
+            
+            console.log('pierdes');
+            
+            setTimeout(()=>{
+                flipCard('both', 180, 360);
+                enemyDeck[0].push(playerDeck[0][0], enemyDeck[0][0]);
+                playerDeck[0].shift();
+                enemyDeck[0].shift();
+                useCard();
 
-                } else if (enemyCardValue == playerCardValue) {
-        
-                    flipEnemyCard(180, 0);
-                    flipPlayerCard(360, 180);
-                    pos = pos+1
-        
-                }
-            }, 5000)
+                deckContainerPlayer.removeChild(deckContainerPlayer.firstElementChild);
+                deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
+            }, 2000)
 
-        }, 1000)   
+        } else if (PlayerValue == enemyValue) {
+
+            console.log('empate');
+
+            setTimeout(()=>{
+                flipCard('both', 180, 360);
+                enemyDeck[0].push(enemyDeck[0][0]);
+                playerDeck[0].push(playerDeck[0][0]);
+                playerDeck[0].shift();
+                enemyDeck[0].shift();
+                useCard()
+            }, 2000)
+
+        }
+
     }, 2000)
 }
 
-function playerTurn() {
-    for(let i = 0; i < cardValues.length; i++) {
-        cardValues[i].addEventListener('click', function(e) {
+for(let i = 0; i < playerCardStat.length; i++) {
+    playerCardStat[i].addEventListener('click', function(){
 
-            let playerCardStat = parseInt(cardValues[i].lastElementChild.textContent);
-            let enemyCardStat = parseInt(document.getElementById(`enemy-${cardValues[i].lastElementChild.id}`).textContent);
-            console.log(playerCardStat)
-            console.log(enemyCardStat)
-            setTimeout(()=>{
+        let playerSelectedValue = parseInt(playerCardStat[i].lastElementChild.textContent);
+        let enemySelectedValue = parseInt(document.getElementById(`enemy-${playerCardStat[i].lastElementChild.id}`).textContent);
+        flipCard('enemy', 360, 180);
+        compareValues(playerSelectedValue, enemySelectedValue);
 
-                flipEnemyCard(360, 180);
-
-                if (playerCardStat > enemyCardStat) {
-                    setTimeout(()=>{
-
-                        playerCardsOnDeck.innerHTML += '<div class="table__area--hud-cards-card"><div class="logo"></div></div>';
-                        enemyCardsOnDeck.removeChild(enemyCardsOnDeck.firstElementChild);
-
-                        flipEnemyCard(180, 0);
-                        flipPlayerCard(360, 180);
-                        enemyTurn();
-                        pos = pos+1
-                        
-                    }, 4000)
-                } else if (playerCardStat < enemyCardStat) {
-                    setTimeout(()=>{
-                        
-                        enemyCardsOnDeck.innerHTML += '<div class="table__area--hud-cards-card"><div class="logo"></div></div>';
-                        playerCardsOnDeck.removeChild(playerCardsOnDeck.firstElementChild);
-                        
-                        flipEnemyCard(180, 0);
-                        flipPlayerCard(360, 180);
-                        enemyTurn();
-                        pos = pos+1
-                        
-                    }, 4000)    
-                } else if (playerCardStat == enemyCardStat) {
-                    setTimeout(()=>{
-                        
-                        flipEnemyCard(180, 0);
-                        flipPlayerCard(360, 180);
-                        enemyTurn();
-                        pos = pos+1
-
-                    }, 4000) 
-                };
-            }, 1000)
-        }, false)
-    }
-} playerTurn();
+    }, 2000)
+}
