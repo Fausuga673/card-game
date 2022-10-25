@@ -4,28 +4,28 @@ let cards = [
         speed: 7,
         attack: 8,
         defense: 5,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/yusukecard.jpg)'
     },
     {
         name: 'Kuwabara',
         speed: 5,
         attack: 7,
         defense: 8,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/kuwabaracard.jpg)'
     },
     {
         name: 'Kurama',
         speed: 8,
         attack: 7,
         defense: 8,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/kuramacard.jpg)'
     },
     {
         name: 'Hiei',
         speed: 10,
         attack: 8,
         defense: 5,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/hieicard.jpg)'
     },
     {
         name: 'Toguro',
@@ -39,77 +39,77 @@ let cards = [
         speed: 8,
         attack: 8,
         defense: 6,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/genkaicard.jpg)'
     },
     {
         name: 'Shinobu',
         speed: 6,
         attack: 7,
         defense: 8,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/shinobucard.jpg)'
     },
     {
         name: 'Chu',
         speed: 7,
         attack: 8,
         defense: 10,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/chucard.jpg)'
     },
     {
         name: 'Raizen',
         speed: 9,
         attack: 9,
         defense: 6,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/raizencard.jpg)'
     },
     {
         name: 'Yomi',
         speed: 8,
         attack: 9,
         defense: 10,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/yomicard.jpg)'
     },
     {
         name: 'Mukuro',
         speed: 8,
         attack: 6,
         defense: 6,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/mukurocard.jpg)'
     },
     {
         name: 'Karasu',
         speed: 7,
         attack: 6,
         defense: 6,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/karasucard.jpg)'
     },
     {
         name: 'Jin',
         speed: 6,
         attack: 10,
         defense: 6,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/jincard.jpg)'
     },
     {
-        name: 'Tsukihito',
-        speed: 4,
+        name: 'Sukazu',
+        speed: 6,
         attack: 9,
         defense: 10,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/sukazucard.jpg)'
     },
     {
         name: 'Yoko',
         speed: 9,
         attack: 9,
         defense: 8,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/yokocard.jpg)'
     },
     {
         name: 'Bui',
         speed: 6,
         attack: 6,
         defense: 10,
-        background: 'url(assets/img/characters/cards/togurocard.jpg)'
+        background: 'url(assets/img/characters/cards/buicard.jpg)'
     }
 ]
 
@@ -170,10 +170,16 @@ function flipCard(card, firstDeg, seconDeg) {
     }
 } 
 
+function disabledButtons(state) {
+    for(let i = 0; i < playerCardStat.length; i++) {
+        playerCardStat[i].disabled = state;
+    }
+}
+
 cardPlayerBack.addEventListener('click', function() {
     flipCard('player', 360, 180);
+    disabledButtons(false);
 }, false)
-
 
 function useCard() {
     console.log(enemyDeck[0]);
@@ -199,58 +205,82 @@ function compareValues(PlayerValue, enemyValue) {
 
             console.log('ganas');
 
-            setTimeout(()=>{
-                flipCard('both', 180, 360);
-                
-                playerDeck[0].push(enemyDeck[0][0], playerDeck[0][0]);
-                playerDeck[0].shift();
-                enemyDeck[0].shift();
-
-                deckContainerEnemy.removeChild(deckContainerEnemy.firstElementChild);
-                deckContainerPlayer.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
-                useCard();
-            }, 2000)
+            flipCard('both', 180, 360);
             
+            playerDeck[0].push(enemyDeck[0][0], playerDeck[0][0]);
+            playerDeck[0].shift();
+            enemyDeck[0].shift();
+
+            deckContainerEnemy.removeChild(deckContainerEnemy.firstElementChild);
+            deckContainerPlayer.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
+            useCard();
+            disabledButtons(false);
+
         } else if (PlayerValue < enemyValue) {
             
             console.log('pierdes');
             
-            setTimeout(()=>{
-                flipCard('both', 180, 360);
-                enemyDeck[0].push(playerDeck[0][0], enemyDeck[0][0]);
-                playerDeck[0].shift();
-                enemyDeck[0].shift();
-                useCard();
+            flipCard('both', 180, 360);
+            enemyDeck[0].push(playerDeck[0][0], enemyDeck[0][0]);
+            playerDeck[0].shift();
+            enemyDeck[0].shift();
 
-                deckContainerPlayer.removeChild(deckContainerPlayer.firstElementChild);
-                deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
-            }, 2000)
+            deckContainerPlayer.removeChild(deckContainerPlayer.firstElementChild);
+            deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
+            useCard();
+            disabledButtons(true);
 
         } else if (PlayerValue == enemyValue) {
 
             console.log('empate');
 
-            setTimeout(()=>{
-                flipCard('both', 180, 360);
-                enemyDeck[0].push(enemyDeck[0][0]);
-                playerDeck[0].push(playerDeck[0][0]);
-                playerDeck[0].shift();
-                enemyDeck[0].shift();
-                useCard()
-            }, 2000)
+            flipCard('both', 180, 360);
+            enemyDeck[0].push(enemyDeck[0][0]);
+            playerDeck[0].push(playerDeck[0][0]);
+            playerDeck[0].shift();
+            enemyDeck[0].shift();
+            useCard();
+            disabledButtons(true);
 
         }
+    }, 2000)
+}
+
+function enemyTurn() {
+
+    let enemySelectedValue = Math.floor(Math.random() * 3);
+    let playerSelectedValue = parseInt(playerCardStat[enemySelectedValue].lastElementChild.textContent);
+    enemySelectedValue = parseInt(enemyCardStat[enemySelectedValue].lastElementChild.textContent);
+
+    disabledButtons(true);
+
+    setTimeout(()=>{
+
+        flipCard('enemy', 360, 180);
+
+        setTimeout(()=>{
+            flipCard('player', 360, 180);
+            compareValues(playerSelectedValue, enemySelectedValue);
+            cardPlayerBack.disabled = false;
+        }, 2000)
 
     }, 2000)
 }
 
 for(let i = 0; i < playerCardStat.length; i++) {
     playerCardStat[i].addEventListener('click', function(){
+        
+        cardPlayerBack.disabled = true;
+        disabledButtons(true);
 
         let playerSelectedValue = parseInt(playerCardStat[i].lastElementChild.textContent);
         let enemySelectedValue = parseInt(document.getElementById(`enemy-${playerCardStat[i].lastElementChild.id}`).textContent);
         flipCard('enemy', 360, 180);
         compareValues(playerSelectedValue, enemySelectedValue);
+
+        setTimeout( ()=> {
+            enemyTurn();
+        }, 6000);
 
     }, 2000)
 }
