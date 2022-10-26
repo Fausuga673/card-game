@@ -5,6 +5,8 @@
     place-items: center;
     background-image: linear-gradient(
         0deg,
+/*         #280242ef,
+        #3c009ce3 */
         #290c1ab7,
         #971075e3
         ), url(../img/background.png);
@@ -12,11 +14,15 @@
     background-size: cover;
 }
 
-.table {
+.table, .message {
+    position: absolute;
     width: min(800px, 100vw);
     height: min(800px, 100vw);
     border-radius: min(5px, 1vw);
     box-shadow: 0 0 .5vw rgba(0, 225, 255, 0.5);
+}
+
+.table {
     background-image: linear-gradient(
         0deg,
         #0d56aaec,
@@ -25,6 +31,65 @@
         ), url(../img/background2.jpg);
     background-position: center;
     background-size: 150%;
+    z-index: 400;
+}
+
+.message {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 500;
+    background-image: linear-gradient(
+        0deg,
+        #0d56aa,
+        #1ca1df,
+        #0d56aa
+        ), url(../img/background2.jpg);
+    background-position: -150%;
+    background-size: 150%;
+    opacity: 0;
+    transition: .2s;
+}
+
+@keyframes message {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.message__result {
+    background: linear-gradient(45deg, #002958, #1673ff, #002958);
+    padding: min(10px, 1vw) min(50px, 5vw);
+    transform: rotate(0deg) scale(1);
+    border: min(2px, 1vw) solid #ffffffa2;
+    border-radius: 90% 10% 90% 10% / 0% 100% 0% 100%;
+    font-size: min(25px, 5vw);
+    font-weight: 800;
+    font-style: italic;
+    background: linear-gradient(90deg, #002658, #00a2ff, #002658);
+    transition: .5s;
+}
+
+@keyframes animationRotate {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    100% {
+        transform: rotate(4deg) scale(1.5);
+    }
+}
+
+.message__result--h2 {
+    color: #fff;
+    font-size: min(50px, 10vw);
+    background-image: linear-gradient(90deg, #ffffff, #00fff2b9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300% 300%;
 }
 
 .table__area {

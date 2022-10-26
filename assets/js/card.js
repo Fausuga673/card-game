@@ -120,15 +120,15 @@ let enemyPosition = -1;
 let playerPosition = -1;
 let enemyDeck = [];
 let playerDeck = [];
-let initialNumberOfCards = 8
+let initialNumberOfCards = 1;
 
 function dealCards() {
     // revolvemos las cartas
     cards = cards.sort(function() {return Math.random() - 0.5});
 
     // tanto el enemigo como el jugador recibe 8 cartas
-    enemyDeck.push(cards.splice(0, 8));
-    playerDeck.push(cards.splice(0, 8));
+    enemyDeck.push(cards.splice(0, 1));
+    playerDeck.push(cards.splice(0, 1));
 
     for(let i = 0; i < initialNumberOfCards; i++) {
         deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
@@ -147,6 +147,9 @@ const enemyCardStat = document.getElementsByClassName('enemy-card-stat');
 
 const playerCardName = document.getElementById('player-card-name');
 const enemyCardName = document.getElementById('enemy-card-name');
+
+const messege = document.getElementById('message');
+const messegeResult = document.getElementById('message__result');
 
 function flipCard(card, firstDeg, seconDeg) {
     if (card == 'player') {
@@ -182,21 +185,43 @@ cardPlayerBack.addEventListener('click', function() {
 }, false)
 
 function useCard() {
-    console.log(enemyDeck[0]);
-    console.log(playerDeck[0]);
 
-    playerCardStat[0].lastElementChild.innerHTML = playerDeck[0][0].speed;
-    playerCardStat[1].lastElementChild.innerHTML = playerDeck[0][0].defense;
-    playerCardStat[2].lastElementChild.innerHTML = playerDeck[0][0].attack;
-    cardPlayerFront.style.backgroundImage = playerDeck[0][0].background;
-    playerCardName.innerHTML = playerDeck[0][0].name;
+    if (playerDeck[0].length > 0) {
+
+        playerCardStat[0].lastElementChild.innerHTML = playerDeck[0][0].speed;
+        playerCardStat[1].lastElementChild.innerHTML = playerDeck[0][0].defense;
+        playerCardStat[2].lastElementChild.innerHTML = playerDeck[0][0].attack;
+        cardPlayerFront.style.backgroundImage = playerDeck[0][0].background;
+        playerCardName.innerHTML = playerDeck[0][0].name;
+
+    } else {
+
+        console.log('pierdes, te quedaste sin cartas');
+        messege.style.display = 'flex';
+        messege.style.animation = 'message 1s forwards';
+        messegeResult.style.animation = 'animationRotate 1s forwards';
+
+    }
+
+    if (enemyDeck[0].length > 0) {
+        enemyCardStat[0].lastElementChild.innerHTML = enemyDeck[0][0].speed;
+        enemyCardStat[1].lastElementChild.innerHTML = enemyDeck[0][0].defense;
+        enemyCardStat[2].lastElementChild.innerHTML = enemyDeck[0][0].attack;
+        cardEnemyFront.style.backgroundImage = enemyDeck[0][0].background;
+        enemyCardName.innerHTML = enemyDeck[0][0].name;
+
+    } else {
+
+        console.log('ganas, el jugador no tiene cartas');
+        messege.style.display = 'flex';
+        messege.style.animation = 'message 1s forwards';
+        messegeResult.style.animation = 'animationRotate 1s forwards';
+
+    }
     
-    enemyCardStat[0].lastElementChild.innerHTML = enemyDeck[0][0].speed;
-    enemyCardStat[1].lastElementChild.innerHTML = enemyDeck[0][0].defense;
-    enemyCardStat[2].lastElementChild.innerHTML = enemyDeck[0][0].attack;
-    cardEnemyFront.style.backgroundImage = enemyDeck[0][0].background;
-    enemyCardName.innerHTML = enemyDeck[0][0].name;
 } useCard();
+
+console.log(messege)
 
 function compareValues(PlayerValue, enemyValue) {
     setTimeout(()=>{
@@ -204,46 +229,46 @@ function compareValues(PlayerValue, enemyValue) {
         if (PlayerValue > enemyValue) { 
 
             console.log('ganas');
-
             flipCard('both', 180, 360);
             
             playerDeck[0].push(enemyDeck[0][0], playerDeck[0][0]);
             playerDeck[0].shift();
             enemyDeck[0].shift();
-
+            
             deckContainerEnemy.removeChild(deckContainerEnemy.firstElementChild);
             deckContainerPlayer.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
-            useCard();
             disabledButtons(false);
+            setTimeout(()=> useCard(), 1000);
 
         } else if (PlayerValue < enemyValue) {
             
             console.log('pierdes');
-            
             flipCard('both', 180, 360);
+
             enemyDeck[0].push(playerDeck[0][0], enemyDeck[0][0]);
             playerDeck[0].shift();
             enemyDeck[0].shift();
 
             deckContainerPlayer.removeChild(deckContainerPlayer.firstElementChild);
             deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
-            useCard();
             disabledButtons(true);
-
+            setTimeout(()=> useCard(), 1000);
+            
         } else if (PlayerValue == enemyValue) {
 
             console.log('empate');
-
             flipCard('both', 180, 360);
+
             enemyDeck[0].push(enemyDeck[0][0]);
             playerDeck[0].push(playerDeck[0][0]);
             playerDeck[0].shift();
             enemyDeck[0].shift();
-            useCard();
+
             disabledButtons(true);
+            setTimeout(()=> useCard(), 1000);
 
         }
-    }, 2000)
+    }, 4000)
 }
 
 function enemyTurn() {
