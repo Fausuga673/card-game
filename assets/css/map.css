@@ -39,16 +39,28 @@
     justify-content: center;
     align-items: center;
     z-index: 500;
+    background-position: -150%;
+    background-size: 150%;
+    opacity: 0;
+    transition: .2s;
+}
+
+.victory {
     background-image: linear-gradient(
         0deg,
         #0d56aa,
         #1ca1df,
         #0d56aa
-        ), url(../img/background2.jpg);
-    background-position: -150%;
-    background-size: 150%;
-    opacity: 0;
-    transition: .2s;
+    ), url(../img/background2.jpg);
+}
+
+.defeat {
+    background-image: linear-gradient(
+        0deg,
+        #99001a,
+        #e70032,
+        #99001a
+    ), url(../img/background2.jpg);
 }
 
 @keyframes message {
@@ -61,7 +73,6 @@
 }
 
 .message__result {
-    background: linear-gradient(45deg, #002958, #1673ff, #002958);
     padding: min(10px, 1vw) min(50px, 5vw);
     transform: rotate(0deg) scale(1);
     border: min(2px, 1vw) solid #ffffffa2;
@@ -69,8 +80,15 @@
     font-size: min(25px, 5vw);
     font-weight: 800;
     font-style: italic;
-    background: linear-gradient(90deg, #002658, #00a2ff, #002658);
     transition: .5s;
+}
+
+.message__resultVictory {
+    background: linear-gradient(45deg, #002958, #1673ff, #002958);
+}
+
+.message__resultDefeat {
+    background: linear-gradient(45deg, #58001d, #ff3916, #58001d);
 }
 
 @keyframes animationRotate {

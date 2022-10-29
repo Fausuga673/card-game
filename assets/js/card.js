@@ -120,15 +120,15 @@ let enemyPosition = -1;
 let playerPosition = -1;
 let enemyDeck = [];
 let playerDeck = [];
-let initialNumberOfCards = 1;
+let initialNumberOfCards = 8;
 
 function dealCards() {
     // revolvemos las cartas
     cards = cards.sort(function() {return Math.random() - 0.5});
 
     // tanto el enemigo como el jugador recibe 8 cartas
-    enemyDeck.push(cards.splice(0, 1));
-    playerDeck.push(cards.splice(0, 1));
+    enemyDeck.push(cards.splice(0, 8));
+    playerDeck.push(cards.splice(0, 8));
 
     for(let i = 0; i < initialNumberOfCards; i++) {
         deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
@@ -150,6 +150,9 @@ const enemyCardName = document.getElementById('enemy-card-name');
 
 const messege = document.getElementById('message');
 const messegeResult = document.getElementById('message__result');
+
+const enemyTurnState = document.getElementById('enemy-turn-state');
+const playerTurnState = document.getElementById('player-turn-state');
 
 function flipCard(card, firstDeg, seconDeg) {
     if (card == 'player') {
@@ -197,24 +200,30 @@ function useCard() {
     } else {
 
         console.log('pierdes, te quedaste sin cartas');
+        messege.classList.add('defeat');
         messege.style.display = 'flex';
         messege.style.animation = 'message 1s forwards';
+        messegeResult.firstElementChild.innerHTML = "Derrota";
+        messegeResult.classList.add('message__resultDefeat');
         messegeResult.style.animation = 'animationRotate 1s forwards';
-
+        
     }
-
+    
     if (enemyDeck[0].length > 0) {
         enemyCardStat[0].lastElementChild.innerHTML = enemyDeck[0][0].speed;
         enemyCardStat[1].lastElementChild.innerHTML = enemyDeck[0][0].defense;
         enemyCardStat[2].lastElementChild.innerHTML = enemyDeck[0][0].attack;
         cardEnemyFront.style.backgroundImage = enemyDeck[0][0].background;
         enemyCardName.innerHTML = enemyDeck[0][0].name;
-
+        
     } else {
-
-        console.log('ganas, el jugador no tiene cartas');
+        
+        console.log('ganas, el enemigo no tiene cartas');
+        messege.classList.add('victory');
         messege.style.display = 'flex';
         messege.style.animation = 'message 1s forwards';
+        messegeResult.firstElementChild.innerHTML = "Victoria";
+        messegeResult.classList.add('message__resultVictory');
         messegeResult.style.animation = 'animationRotate 1s forwards';
 
     }
@@ -240,6 +249,9 @@ function compareValues(PlayerValue, enemyValue) {
             disabledButtons(false);
             setTimeout(()=> useCard(), 1000);
 
+            playerTurnState.innerHTML = "Turno";
+            enemyTurnState.innerHTML = "";
+
         } else if (PlayerValue < enemyValue) {
             
             console.log('pierdes');
@@ -253,6 +265,9 @@ function compareValues(PlayerValue, enemyValue) {
             deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
             disabledButtons(true);
             setTimeout(()=> useCard(), 1000);
+
+            playerTurnState.innerHTML = "Turno";
+            enemyTurnState.innerHTML = "";
             
         } else if (PlayerValue == enemyValue) {
 
@@ -267,12 +282,17 @@ function compareValues(PlayerValue, enemyValue) {
             disabledButtons(true);
             setTimeout(()=> useCard(), 1000);
 
+            playerTurnState.innerHTML = "Turno";
+            enemyTurnState.innerHTML = "";
+
         }
     }, 4000)
 }
 
 function enemyTurn() {
 
+    playerTurnState.innerHTML = "";
+    enemyTurnState.innerHTML = "Turno";
     let enemySelectedValue = Math.floor(Math.random() * 3);
     let playerSelectedValue = parseInt(playerCardStat[enemySelectedValue].lastElementChild.textContent);
     enemySelectedValue = parseInt(enemyCardStat[enemySelectedValue].lastElementChild.textContent);
