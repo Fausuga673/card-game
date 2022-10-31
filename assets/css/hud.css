@@ -39,13 +39,6 @@
     font-weight: 200;
 }
 
-.table__area--hud-avatar-score {
-    font-size: min(20px, 2vw);
-    color: rgb(255, 196, 0);
-    margin-left: .5vw;
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-}
-
 .enemy-avatar {
     background-image: url(../img/characters/avatar/toguro.jpg);
 }

@@ -54,6 +54,15 @@
     ), url(../img/background2.jpg);
 }
 
+.tie {
+    background-image: linear-gradient(
+        0deg,
+        #aa660d,
+        #dfa51c,
+        #aa660d
+    ), url(../img/background2.jpg);
+}
+
 .defeat {
     background-image: linear-gradient(
         0deg,
@@ -68,6 +77,15 @@
         opacity: 0;
     }
     100% {
+        opacity: 1;
+    }
+}
+
+@keyframes messageTie {
+    0% {
+        opacity: 0;
+    }
+    50% {
         opacity: 1;
     }
 }
@@ -91,11 +109,24 @@
     background: linear-gradient(45deg, #58001d, #ff3916, #58001d);
 }
 
+.message__resultTie {
+    background: linear-gradient(45deg, #5d1d00, #9b5c35, #5d1d00);
+}
+
 @keyframes animationRotate {
     0% {
         transform: rotate(0deg) scale(1);
     }
     100% {
+        transform: rotate(4deg) scale(1.5);
+    }
+}
+
+@keyframes animationTie {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
         transform: rotate(4deg) scale(1.5);
     }
 }

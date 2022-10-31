@@ -120,15 +120,15 @@ let enemyPosition = -1;
 let playerPosition = -1;
 let enemyDeck = [];
 let playerDeck = [];
-let initialNumberOfCards = 8;
+let initialNumberOfCards = 1;
 
 function dealCards() {
     // revolvemos las cartas
     cards = cards.sort(function() {return Math.random() - 0.5});
 
     // tanto el enemigo como el jugador recibe 8 cartas
-    enemyDeck.push(cards.splice(0, 8));
-    playerDeck.push(cards.splice(0, 8));
+    enemyDeck.push(cards.splice(0, 1));
+    playerDeck.push(cards.splice(0, 1));
 
     for(let i = 0; i < initialNumberOfCards; i++) {
         deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
@@ -150,9 +150,6 @@ const enemyCardName = document.getElementById('enemy-card-name');
 
 const messege = document.getElementById('message');
 const messegeResult = document.getElementById('message__result');
-
-const enemyTurnState = document.getElementById('enemy-turn-state');
-const playerTurnState = document.getElementById('player-turn-state');
 
 function flipCard(card, firstDeg, seconDeg) {
     if (card == 'player') {
@@ -249,9 +246,6 @@ function compareValues(PlayerValue, enemyValue) {
             disabledButtons(false);
             setTimeout(()=> useCard(), 1000);
 
-            playerTurnState.innerHTML = "Turno";
-            enemyTurnState.innerHTML = "";
-
         } else if (PlayerValue < enemyValue) {
             
             console.log('pierdes');
@@ -265,9 +259,6 @@ function compareValues(PlayerValue, enemyValue) {
             deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
             disabledButtons(true);
             setTimeout(()=> useCard(), 1000);
-
-            playerTurnState.innerHTML = "Turno";
-            enemyTurnState.innerHTML = "";
             
         } else if (PlayerValue == enemyValue) {
 
@@ -282,8 +273,20 @@ function compareValues(PlayerValue, enemyValue) {
             disabledButtons(true);
             setTimeout(()=> useCard(), 1000);
 
-            playerTurnState.innerHTML = "Turno";
-            enemyTurnState.innerHTML = "";
+            messege.classList.add('tie');
+            messege.style.display = 'flex';
+            messege.style.animation = 'messageTie 1s alternate';
+            messegeResult.firstElementChild.innerHTML = "Empate";
+            messegeResult.classList.add('message__resultTie');
+            messegeResult.style.animation = 'animationTie 1s alternate';
+
+            setTimeout(()=>{
+                messege.classList.remove('tie');
+                messege.style.display = 'none';
+                messege.style.animation = null;
+                messegeResult.classList.remove('message__resultTie');
+                messegeResult.style.animation = null;
+            }, 1000)
 
         }
     }, 4000)
@@ -291,8 +294,6 @@ function compareValues(PlayerValue, enemyValue) {
 
 function enemyTurn() {
 
-    playerTurnState.innerHTML = "";
-    enemyTurnState.innerHTML = "Turno";
     let enemySelectedValue = Math.floor(Math.random() * 3);
     let playerSelectedValue = parseInt(playerCardStat[enemySelectedValue].lastElementChild.textContent);
     enemySelectedValue = parseInt(enemyCardStat[enemySelectedValue].lastElementChild.textContent);
