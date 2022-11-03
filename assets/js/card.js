@@ -245,10 +245,10 @@ function animation(msg) {
 
     messege.classList.add(msg);
     messege.style.display = 'flex';
-    messege.style.animation = 'msg 1s alternate';
+    messege.style.animation = 'msg 1.5s alternate';
     messegeResult.firstElementChild.innerHTML = result[msg];
     messegeResult.classList.add('message__result-' + msg);
-    messegeResult.style.animation = 'animationMsg 1s alternate';
+    messegeResult.style.animation = 'animationMsg 1.5s alternate';
 
     setTimeout(()=>{
         messege.classList.remove(msg);
@@ -256,7 +256,7 @@ function animation(msg) {
         messege.style.animation = null;
         messegeResult.classList.remove('message__result-' + msg);
         messegeResult.style.animation = null;
-    }, 1000)
+    }, 1500)
 }
 
 function compareValues(PlayerValue, enemyValue) {
