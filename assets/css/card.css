@@ -56,6 +56,10 @@
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
+.table__area--turn-card-stat:hover {
+    box-shadow: 0 0 1vw rgba(233, 233, 233, 0.900);
+}
+
 .stat-p {
     font-size: min(10px, 1.5vw);
     text-shadow: none;

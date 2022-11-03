@@ -120,15 +120,15 @@ let enemyPosition = -1;
 let playerPosition = -1;
 let enemyDeck = [];
 let playerDeck = [];
-let initialNumberOfCards = 1;
+let initialNumberOfCards = 8;
 
 function dealCards() {
     // revolvemos las cartas
     cards = cards.sort(function() {return Math.random() - 0.5});
 
     // tanto el enemigo como el jugador recibe 8 cartas
-    enemyDeck.push(cards.splice(0, 1));
-    playerDeck.push(cards.splice(0, 1));
+    enemyDeck.push(cards.splice(0, 8));
+    playerDeck.push(cards.splice(0, 8));
 
     for(let i = 0; i < initialNumberOfCards; i++) {
         deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
@@ -150,6 +150,12 @@ const enemyCardName = document.getElementById('enemy-card-name');
 
 const messege = document.getElementById('message');
 const messegeResult = document.getElementById('message__result');
+
+const messageResultButtons = document.getElementById('message__result--btn');
+
+const stateEnemyTurn = document.getElementById('state-enemy-turn');
+const statePlayerTurn = document.getElementById('state-player-turn');
+const turnInstruction = document.getElementById('turn-instruction');
 
 function flipCard(card, firstDeg, seconDeg) {
     if (card == 'player') {
@@ -180,6 +186,7 @@ function disabledButtons(state) {
 }
 
 cardPlayerBack.addEventListener('click', function() {
+    turnInstruction.innerHTML = 'Selecciona una estadística';
     flipCard('player', 360, 180);
     disabledButtons(false);
 }, false)
@@ -201,9 +208,10 @@ function useCard() {
         messege.style.display = 'flex';
         messege.style.animation = 'message 1s forwards';
         messegeResult.firstElementChild.innerHTML = "Derrota";
-        messegeResult.classList.add('message__resultDefeat');
+        messegeResult.classList.add('message__result-defeat');
         messegeResult.style.animation = 'animationRotate 1s forwards';
         
+        messageResultButtons.style.display = "flex";
     }
     
     if (enemyDeck[0].length > 0) {
@@ -220,14 +228,36 @@ function useCard() {
         messege.style.display = 'flex';
         messege.style.animation = 'message 1s forwards';
         messegeResult.firstElementChild.innerHTML = "Victoria";
-        messegeResult.classList.add('message__resultVictory');
+        messegeResult.classList.add('message__result-victory');
         messegeResult.style.animation = 'animationRotate 1s forwards';
-
+        
+        messageResultButtons.style.display = "flex";
     }
     
 } useCard();
 
-console.log(messege)
+function animation(msg) {
+    let result = {
+        'tie':'Empate',
+        'victory':'Ganas',
+        'defeat':'Pierdes'
+    }
+
+    messege.classList.add(msg);
+    messege.style.display = 'flex';
+    messege.style.animation = 'msg 1s alternate';
+    messegeResult.firstElementChild.innerHTML = result[msg];
+    messegeResult.classList.add('message__result-' + msg);
+    messegeResult.style.animation = 'animationMsg 1s alternate';
+
+    setTimeout(()=>{
+        messege.classList.remove(msg);
+        messege.style.display = 'none';
+        messege.style.animation = null;
+        messegeResult.classList.remove('message__result-' + msg);
+        messegeResult.style.animation = null;
+    }, 1000)
+}
 
 function compareValues(PlayerValue, enemyValue) {
     setTimeout(()=>{
@@ -242,75 +272,82 @@ function compareValues(PlayerValue, enemyValue) {
             enemyDeck[0].shift();
             
             deckContainerEnemy.removeChild(deckContainerEnemy.firstElementChild);
-            deckContainerPlayer.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
             disabledButtons(false);
-            setTimeout(()=> useCard(), 1000);
+            animation('victory');
+            setTimeout(()=> useCard(), 1100);
+            deckContainerPlayer.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
 
+            turnInstruction.innerHTML = 'Click en tu carta';
+            statePlayerTurn.innerHTML = 'Tu turno';
+            stateEnemyTurn.innerHTML = '';
+            
         } else if (PlayerValue < enemyValue) {
             
             console.log('pierdes');
             flipCard('both', 180, 360);
-
+            
             enemyDeck[0].push(playerDeck[0][0], enemyDeck[0][0]);
-            playerDeck[0].shift();
             enemyDeck[0].shift();
-
+            playerDeck[0].shift();
+            
             deckContainerPlayer.removeChild(deckContainerPlayer.firstElementChild);
-            deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
             disabledButtons(true);
-            setTimeout(()=> useCard(), 1000);
+            animation('defeat');
+            setTimeout(()=> useCard(), 1100);
+            deckContainerEnemy.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
+            
+            turnInstruction.innerHTML = 'Click en tu carta';
+            statePlayerTurn.innerHTML = 'Tu turno';
+            stateEnemyTurn.innerHTML = '';
             
         } else if (PlayerValue == enemyValue) {
-
+            
             console.log('empate');
             flipCard('both', 180, 360);
-
+            
             enemyDeck[0].push(enemyDeck[0][0]);
             playerDeck[0].push(playerDeck[0][0]);
             playerDeck[0].shift();
             enemyDeck[0].shift();
-
+            
             disabledButtons(true);
-            setTimeout(()=> useCard(), 1000);
-
-            messege.classList.add('tie');
-            messege.style.display = 'flex';
-            messege.style.animation = 'messageTie 1s alternate';
-            messegeResult.firstElementChild.innerHTML = "Empate";
-            messegeResult.classList.add('message__resultTie');
-            messegeResult.style.animation = 'animationTie 1s alternate';
-
-            setTimeout(()=>{
-                messege.classList.remove('tie');
-                messege.style.display = 'none';
-                messege.style.animation = null;
-                messegeResult.classList.remove('message__resultTie');
-                messegeResult.style.animation = null;
-            }, 1000)
-
+            setTimeout(()=> useCard(), 1100);
+            animation('tie');
+            
+            turnInstruction.innerHTML = 'Click en tu carta';
+            statePlayerTurn.innerHTML = 'Tu turno';
+            stateEnemyTurn.innerHTML = '';
+            
         }
     }, 4000)
 }
 
 function enemyTurn() {
 
-    let enemySelectedValue = Math.floor(Math.random() * 3);
-    let playerSelectedValue = parseInt(playerCardStat[enemySelectedValue].lastElementChild.textContent);
-    enemySelectedValue = parseInt(enemyCardStat[enemySelectedValue].lastElementChild.textContent);
+    stateEnemyTurn.innerHTML = 'Turno enemigo';
+    statePlayerTurn.innerHTML = '';
+    turnInstruction.innerHTML = '';
+
+    let randomValue = Math.floor(Math.random() * 3);
+ 
+    let playerSelectedValue = parseInt(playerCardStat[randomValue].lastElementChild.textContent);
+    enemySelectedValue = parseInt(enemyCardStat[randomValue].lastElementChild.textContent);
+    
 
     disabledButtons(true);
-
-    setTimeout(()=>{
-
-        flipCard('enemy', 360, 180);
-
+    if ((enemyDeck[0].length > 0) && (playerDeck[0].length > 0)) {
         setTimeout(()=>{
-            flipCard('player', 360, 180);
-            compareValues(playerSelectedValue, enemySelectedValue);
-            cardPlayerBack.disabled = false;
-        }, 2000)
+            
+            flipCard('enemy', 360, 180);
+            
+            setTimeout(()=>{
+                flipCard('player', 360, 180);
+                compareValues(playerSelectedValue, enemySelectedValue);
+                cardPlayerBack.disabled = false;
+            }, 2000)
 
-    }, 2000)
+        }, 2000)
+    }
 }
 
 for(let i = 0; i < playerCardStat.length; i++) {
@@ -326,7 +363,7 @@ for(let i = 0; i < playerCardStat.length; i++) {
 
         setTimeout( ()=> {
             enemyTurn();
-        }, 6000);
+        }, 4000);
 
     }, 2000)
 }

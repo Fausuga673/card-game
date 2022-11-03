@@ -94,7 +94,7 @@
     font-size: min(20px, 3vw);
     padding: 0 1vw;
     border: min(1px, .5vw) solid #ffffff;
-    background: linear-gradient(90deg, #000000, #00000091, #000000);
+    background: linear-gradient(90deg, #000000, #0c0e4e, #000000);
 }
 
 .menu__container--select-tittle h2 {

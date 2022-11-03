@@ -14,8 +14,40 @@
     padding: min(20px, 1vw);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     overflow: hidden;
+    position: relative;
+}
+
+.table__area--hud-avatar-state, .table__area--turn-instruction {
+    font-size: min(20px, 2vw);
+    background-image: linear-gradient(90deg, #ffffff, #ffffff, #ffffff, #ff0073, #ffffff, #ffffff, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300% 300%;
+    animation: gradient 8s ease-in-out infinite;
+    font-weight: 800;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.table__area--hud-avatar-state {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .table__area--hud-avatar-photo {
@@ -29,7 +61,7 @@
 }
 
 .table__area--hud-avatar-name {
-    font-size: min(20px, 2vw);
+    font-size: min(20px, 3vw);
     letter-spacing: .1vw;
     background: #000000;
     border-radius: max(5px, .5vw);
