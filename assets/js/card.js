@@ -272,7 +272,7 @@ function compareValues(PlayerValue, enemyValue) {
             enemyDeck[0].shift();
             
             deckContainerEnemy.removeChild(deckContainerEnemy.firstElementChild);
-            disabledButtons(false);
+            disabledButtons(true);
             animation('victory');
             setTimeout(()=> useCard(), 1100);
             deckContainerPlayer.innerHTML += "<div class='table__area--hud-cards-card'><div class='logo'><div></div>";
